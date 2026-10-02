@@ -32,7 +32,11 @@
     fetch(C.webhookRoteiros, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo) })
       .then(function (r) { if (!r.ok) throw new Error("HTTP " + r.status + (r.status === 404 ? " — o workflow do n8n está ativo?" : "")); return r.json(); })
       .then(function (d) { if (!d.ok) throw new Error(d.erro || "Erro desconhecido"); ultimo = d; mostrar(d); })
-      .catch(function (x) { erro(x.message); })
+      .catch(function (x) {
+        erro(x instanceof TypeError
+          ? "Não foi possível falar com o n8n. Confira se o workflow \"Posta Todo Dia — Roteirista\" foi importado e está ativo."
+          : x.message);
+      })
       .finally(function () { btn.disabled = false; btn.textContent = "Gerar roteiros"; });
   });
 
