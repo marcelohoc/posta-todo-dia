@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Painel do roteirista — Posta Todo Dia</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="config.js"></script>
+</head>
+<body>
+<header class="topo"><div class="wrap topo-in"><span class="logo"><span class="logo-play">▶</span> Painel do roteirista</span></div></header>
+<main class="painel"><div class="wrap estreito">
+
+  <div class="cartao" id="form-gerar">
+    <h2>Novo produto</h2>
+    <form id="form" novalidate>
+      <label>Token de acesso<input id="token" type="password" autocomplete="off" placeholder="cole o token do arquivo backend/.token"></label>
+      <label>Nome do produto<input id="nome" required placeholder="Garrafa térmica inox 500 ml"></label>
+      <label>Link (TikTok Shop, Shopee, loja)<input id="link" type="url" placeholder="https://"></label>
+      <label>Descrição / ficha técnica (cole do anúncio)<textarea id="descricao" rows="6" placeholder="Material, medidas, cores, o que vem na caixa, diferenciais..."></textarea></label>
+      <div class="grid-2">
+        <label>Preço (opcional)<input id="preco" placeholder="R$ 49,90"></label>
+        <label>Público-alvo (opcional)<input id="publico" placeholder="quem trabalha fora e leva café"></label>
+        <label>Plataforma
+          <select id="plataforma"><option>TikTok Shop</option><option>Shopee</option><option>Instagram Reels</option><option>Kwai</option></select>
+        </label>
+        <label>Tipo de conta
+          <select id="tipo_conta"><option value="afiliado">Afiliado</option><option value="lojista">Loja oficial</option></select>
+        </label>
+        <label>Quantidade de roteiros (máx. 15)<input id="quantidade" type="number" min="1" max="15" value="10"></label>
+        <label>Narração por voz de IA?
+          <select id="voz_ia"><option value="nao">Não (a pessoa fala ou só texto)</option><option value="sim">Sim (vídeo será sinalizado)</option></select>
+        </label>
+      </div>
+      <label>Diferenciais confirmados (opcional)<input id="diferenciais" placeholder="só o que você testou de verdade"></label>
+      <p class="erro" id="erro" hidden></p>
+      <button class="btn btn-lg btn-bloco btn-escuro" id="gerar" type="submit">Gerar roteiros</button>
+      <p class="pequeno">Leva de 30 a 90 segundos.</p>
+    </form>
+  </div>
+
+  <div id="resultado" hidden>
+    <div class="acoes-topo">
+      <button class="btn" id="baixar">Baixar roteiros.json</button>
+      <button class="btn btn-escuro" onclick="window.print()">Imprimir roteiro de gravação</button>
+      <button class="btn btn-escuro" id="novo">Novo produto</button>
+    </div>
+    <div class="cartao">
+      <h2>Roteiro de gravação</h2>
+      <p id="resumo" class="muted"></p>
+      <p class="pequeno">Filme na vertical, com luz natural, de 3 a 8 segundos cada. Salve cada clipe com o nome da tomada (T01, T02…).</p>
+      <ul class="tomadas" id="tomadas"></ul>
+      <div id="pendencias"></div>
+    </div>
+    <div class="cartao" id="roteiros-box">
+      <h2>Roteiros</h2>
+      <div id="roteiros"></div>
+    </div>
+  </div>
+
+</div></main>
+<script src="assets/painel.js"></script>
+</body>
+</html>
